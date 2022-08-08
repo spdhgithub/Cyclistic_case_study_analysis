@@ -32,8 +32,6 @@ bike_rides<-rbind(trips_2021_01,trips_2021_02,trips_2021_03,trips_2021_04,trips_
 bike_rides <- remove_empty(bike_rides.which = c("cols"))
 bike_rides <- remove_empty(bike_rides.which = c("rows"))
 
-## exporting "bike_rides" file for some cleaning in sql.
-write.csv(bike_rides, ("bike_rides.csv"))
 
 colnames(bike_rides)
 GLIMPSE(bike_ride)
@@ -72,8 +70,8 @@ library(dplyr)
 
 ## changing the data type of started_at and ended_at from chr to datetime.
 bike_rides <- bike_rides %>%
-  mutate(bike_rides,started_at = as.POPSIXct(started_at),
-         bike_rides,ended_at = as.POPSIXct(ended_at))
+  mutate(bike_rides,started_at = as.POSIXct(started_at),
+         bike_rides,ended_at = as.POSIXct(ended_at))
 
 
 ## now changing the data type of start_station_id and end_station_id from chr to double:
@@ -201,24 +199,11 @@ bike_rides_clean %>%
 install.packages("ggplot2")
 library(ggplot2)
 
-rloc <- aggregate(ride_length~member_casual, data = bike_rides_clean, length)
-head(rloc)
-
-
 write.csv(hourly_riders, ("hourly_riders.csv"))
 write.csv(monthly_riders, ("monthly_riders.csv"))
 write.csv(weekly_riders, ("weekly_riders.csv"))
 write.csv(bike_rides_clean, ("bike_rides_clean.csv"))
 
-ggplot(data = rloc) +
-  geom_bar(mapping = aes(x = member_casual, y = ride_length))
-
-ggplot(rloc, aes(y=ride_length, x="", fill=member_casual)) +
-  geom_bar(stat= 'identity', width=1) + 
-  coord_polar("y", start=0) +
-  theme_void()+
-  scale_fill_brewer(palette="Set2")+
-  labs(title = "Number of Casual Customers vs Members", size =10)
 
 library(installr)
 updateR()
