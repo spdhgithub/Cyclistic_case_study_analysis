@@ -23,7 +23,7 @@ library(tidyr)
 library(dplyr)
 library(janitor)
 
-## data source:
+## data source: https://divvy-tripdata.s3.amazonaws.com/index.html
 
 ## combining 12 data frames into 1 dataframe 
 bike_rides<-rbind(trips_2021_01,trips_2021_02,trips_2021_03,trips_2021_04,trips_2021_05,
